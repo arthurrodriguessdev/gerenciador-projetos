@@ -57,10 +57,19 @@ def cadastrar_tarefa():
 
         if selecionar_codigo in projetos:
             titulo_tarefa = input("\nInforme o título da tarefa: ").upper()
-            status_tarefa = input("Informe o status da tarefa: ")
+            status_tarefa = input("\nATIVO\n" \
+            "FINALIZADO\n" \
+            "STAND-BY\n" \
+            "\nQual status do projeto? ").upper().strip()
 
-            lista_tarefas = [{'Título da tarefa': titulo_tarefa, 'Status da tarefa': status_tarefa}]
-            projetos[selecionar_codigo]['Tarefas'] = lista_tarefas
+            if status_tarefa in STATUS_PERMITIDO:
+                lista_tarefas = [{'Título da tarefa': titulo_tarefa, 'Status da tarefa': status_tarefa}]
+                projetos[selecionar_codigo]['Tarefas'] = lista_tarefas
+
+                print("\nTarefa cadastrada com sucesso!\n")
+                
+            else:
+                print("\nStatus inválido!\n")
         else:
             print("\nCódigo inválido!\n")
     else:
@@ -69,14 +78,8 @@ def cadastrar_tarefa():
 
 
 
-
-
-
-
-
-
 menu_principal = True
-while menu_principal: #Lógica e loop de exibição do menu
+while menu_principal: 
     print("\n=== GERENCIADOR DE PROJETOS ===\n")
     print("1 - Cadastrar projeto")
     print("2 - Cadastrar tarefa")
