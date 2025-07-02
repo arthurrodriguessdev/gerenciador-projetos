@@ -55,8 +55,6 @@ def cadastrar_tarefa():
             "\nQual status do projeto? ").upper().strip()
 
             if status_tarefa in STATUS_PERMITIDO:
-           
-                
                 lista_tarefas.append({'Título da tarefa': titulo_tarefa, 'Status da tarefa': status_tarefa, 'Código da tarefa': codigo_tarefa})
                 projetos[selecionar_codigo]['Tarefas'] = lista_tarefas
 
@@ -108,7 +106,7 @@ def listar_tarefas():
             print("\n=== LISTA DE TAREFAS DO PROJETO ===\n")
 
             for tarefa in projetos[selecionar_codigo]['Tarefas']:
-                print(f"Tarefa {i}: {tarefa['Título da tarefa']}")
+                print(f"Tarefa {i}: {tarefa['Título da tarefa']} | Status: {tarefa['Status da tarefa']}")
                 i += 1
 
         else:
@@ -118,6 +116,9 @@ def listar_tarefas():
 
 
 def atualizar_status_da_tarefa():
+    """
+    Realiza a atualização de status da tarefa
+    """
     if projetos:
         i = 1
 
@@ -126,8 +127,8 @@ def atualizar_status_da_tarefa():
             print(f"{i} - {code}")
             i += 1
 
-        selecionar_codigo = input("\nInforme o código do projeto para acessar tarefas cadastradas: ")
-
+        selecionar_codigo = input("\nInforme o código do projeto para acessar tarefas cadastradas: ").strip().upper()
+        
         if 'Tarefas' in projetos[selecionar_codigo]:
             print("\n=== LISTA DE TAREFAS ===\n")
 
@@ -136,19 +137,33 @@ def atualizar_status_da_tarefa():
                 print(f"{i} - {tarefas['Título da tarefa']} | Código: {tarefas['Código da tarefa']} | Status: {tarefas['Status da tarefa']}")
                 i += 1
             
-            novo_status_tarefa = input("\nATIVO\n" \
-            "FINALIZADO\n" \
-            "STAND-BY\n" \
-            "\nQual status do projeto? ").upper().strip()
+            escolher_tarefa = input("\nDigite o número da tarefa que deseja fazer a alteração: ")
 
+            try:
+                escolher_tarefa = int(escolher_tarefa)
+                escolher_tarefa -= 1
+
+                novo_status_tarefa = input("\nATIVO\n" \
+                "FINALIZADO\n" \
+                "STAND-BY\n" \
+                "\nQual o novo status do projeto? ").upper().strip()
+
+                if novo_status_tarefa in STATUS_PERMITIDO:
+                    projetos[selecionar_codigo]['Tarefas'][escolher_tarefa]['Status da tarefa'] = novo_status_tarefa
+
+                    print("\nStatus atualizado com sucesso!\n")
             
-
+                else:
+                    print("\nStatus de tarefa inválido!\n")
             
-
+            except ValueError:
+                print("\nDígito inválido!\n")
         else:
             print("\nSem tarefas cadastradas nesse projeto1\n")
     else:
         print("\nNão há projetos cadastrados!\n")
+
+
 menu_principal = True
 while menu_principal: 
     print("\n=== GERENCIADOR DE PROJETOS ===\n")
@@ -181,7 +196,7 @@ while menu_principal:
         listar_tarefas()
 
     elif selecionar_opcao == 5:
-        pass
+        atualizar_status_da_tarefa()
 
     elif selecionar_opcao == 6:
         pass
