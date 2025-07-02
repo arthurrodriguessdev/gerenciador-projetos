@@ -1,3 +1,8 @@
+import datetime
+
+x = datetime.datetime.now()
+print(x) 
+
 STATUS_PERMITIDO = ['ATIVO', 'FINALIZADO', 'STAND-BY']
 projetos = {}
 lista_tarefas = []
@@ -58,7 +63,7 @@ def cadastrar_tarefa():
                 lista_tarefas.append({'Título da tarefa': titulo_tarefa, 'Status da tarefa': status_tarefa, 'Código da tarefa': codigo_tarefa})
                 projetos[selecionar_codigo]['Tarefas'] = lista_tarefas
 
-                print("\nTarefa cadastrada com sucesso!\n")
+                print("\nTarefa cadastrada com sucesso!")
                 
             else:
                 print("\nStatus inválido!\n")
@@ -151,7 +156,7 @@ def atualizar_status_da_tarefa():
                 if novo_status_tarefa in STATUS_PERMITIDO:
                     projetos[selecionar_codigo]['Tarefas'][escolher_tarefa]['Status da tarefa'] = novo_status_tarefa
 
-                    print("\nStatus atualizado com sucesso!\n")
+                    print("\nStatus atualizado com sucesso!")
             
                 else:
                     print("\nStatus de tarefa inválido!\n")
@@ -172,8 +177,7 @@ while menu_principal:
     print("3 - Listar projetos")
     print("4 - Listar tarefas de um projeto")
     print("5 - Atualizar status da tarefa")
-    print("6 - Exibir relatório")
-    print("7 - Sair\n")
+    print("6 - Sair\n")
 
     selecionar_opcao = input("Informe o número referente à opção desejada: ")
     
@@ -199,8 +203,5 @@ while menu_principal:
         atualizar_status_da_tarefa()
 
     elif selecionar_opcao == 6:
-        pass
-
-    elif selecionar_opcao == 7:
         menu_principal = False
         print("\nMenu finalizado com sucesso!")
