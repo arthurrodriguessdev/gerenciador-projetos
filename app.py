@@ -1,8 +1,3 @@
-import datetime
-
-x = datetime.datetime.now()
-print(x) 
-
 STATUS_PERMITIDO = ['ATIVO', 'FINALIZADO', 'STAND-BY']
 projetos = {}
 lista_tarefas = []
@@ -201,6 +196,7 @@ while menu_principal:
 
     elif selecionar_opcao == 5:
         atualizar_status_da_tarefa()
+        print(projetos)
 
     elif selecionar_opcao == 6:
         menu_principal = False
